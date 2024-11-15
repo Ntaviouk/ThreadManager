@@ -156,5 +156,44 @@ namespace ThreadManager
             // Показуємо повідомлення, що пріоритет був змінений
             MessageBox.Show($"Пріоритет потоку {selectedThreadIndex} змінено на {priority.ToString()}");
         }
+
+        private void comboBoxThreads_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Перевіряємо, чи вибрано потік
+            if (comboBoxThreads.SelectedIndex == -1)
+            {
+                return; // Якщо не вибрано, нічого не робимо
+            }
+
+            // Отримуємо вибраний потік за індексом
+            int selectedThreadIndex = comboBoxThreads.SelectedIndex;
+            Thread selectedThread = Threads[selectedThreadIndex];
+
+            // Отримуємо пріоритет потоку
+            ThreadPriority threadPriority = selectedThread.Priority;
+
+            // Виводимо пріоритет потоку в comboBoxPriority
+            switch (threadPriority)
+            {
+                case ThreadPriority.Lowest:
+                    comboBoxPriority.SelectedItem = "Lowest";
+                    break;
+                case ThreadPriority.BelowNormal:
+                    comboBoxPriority.SelectedItem = "BelowNormal";
+                    break;
+                case ThreadPriority.Normal:
+                    comboBoxPriority.SelectedItem = "Normal";
+                    break;
+                case ThreadPriority.AboveNormal:
+                    comboBoxPriority.SelectedItem = "AboveNormal";
+                    break;
+                case ThreadPriority.Highest:
+                    comboBoxPriority.SelectedItem = "Highest";
+                    break;
+                default:
+                    comboBoxPriority.SelectedItem = null;
+                    break;
+            }
+        }
     }
 }

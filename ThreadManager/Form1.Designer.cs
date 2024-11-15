@@ -130,6 +130,7 @@
             comboBoxThreads.Name = "comboBoxThreads";
             comboBoxThreads.Size = new Size(64, 23);
             comboBoxThreads.TabIndex = 9;
+            comboBoxThreads.SelectedIndexChanged += comboBoxThreads_SelectedIndexChanged;
             // 
             // comboBoxPriority
             // 
