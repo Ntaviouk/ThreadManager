@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadManager", "ThreadManager\ThreadManager.csproj", "{FCBAC228-EF68-4FF7-B9A9-8936E4909C59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadManager", "ThreadManager\ThreadManager.csproj", "{FCBAC228-EF68-4FF7-B9A9-8936E4909C59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PotokDll", "PotokDll\PotokDll.csproj", "{A683CAC5-8838-4341-A13D-AC712ABC61A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FCBAC228-EF68-4FF7-B9A9-8936E4909C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCBAC228-EF68-4FF7-B9A9-8936E4909C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCBAC228-EF68-4FF7-B9A9-8936E4909C59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A683CAC5-8838-4341-A13D-AC712ABC61A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A683CAC5-8838-4341-A13D-AC712ABC61A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A683CAC5-8838-4341-A13D-AC712ABC61A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A683CAC5-8838-4341-A13D-AC712ABC61A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

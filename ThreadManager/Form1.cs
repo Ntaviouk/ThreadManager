@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace ThreadManager
 {
@@ -6,48 +10,10 @@ namespace ThreadManager
     {
         public int[] Array;
         public List<Thread> Threads = new List<Thread>();
+
         public Form1()
         {
             InitializeComponent();
-        }
-
-        static int[] GenerateRandomArray(int N, int a, int b)
-        {
-            Random random = new Random();
-            int[] array = new int[N];
-
-            for (int i = 0; i < N; i++)
-            {
-                array[i] = random.Next(a, b + 1);
-            }
-
-            return array;
-        }
-
-        static void SelectionSort(int[] array)
-        {
-            int n = array.Length;
-
-            for (int i = 0; i < n - 1; i++)
-            {
-                // Знаходимо індекс найменшого елемента
-                int minIndex = i;
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (array[j] < array[minIndex])
-                    {
-                        minIndex = j;
-                    }
-                }
-
-                // Обмінюємо поточний елемент із найменшим
-                if (minIndex != i)
-                {
-                    int temp = array[i];
-                    array[i] = array[minIndex];
-                    array[minIndex] = temp;
-                }
-            }
         }
 
         public void SetComboBox(int ThreadsCount)
@@ -74,11 +40,12 @@ namespace ThreadManager
             int ThreadsCount = Int32.Parse(textBoxThreadsCount.Text);
 
             // Ініціалізуємо масив
-            Array = GenerateRandomArray(N, -100, 100);
+            Array = PotokDll.Potok.GenerateRandomArray(N, -100, 100);
             PrintArray(richTextBoxArray, Array);
 
             // Розбиття масиву на частини для кожного потоку
             int chunkSize = N / ThreadsCount;
+            int[][] sortedParts = new int[ThreadsCount][];
 
             SetComboBox(ThreadsCount);
 
@@ -89,21 +56,25 @@ namespace ThreadManager
                 int[] part = Array.Skip(start).Take(end - start).ToArray();
 
                 // Створюємо новий потік для сортування частини масиву
+                int threadIndex = i; // Зберігаємо індекс для доступу всередині потоку
                 Thread thread = new Thread(() =>
                 {
-                    SelectionSort(part);
-                    // Після сортування частини, зливаємо її назад в основний масив
-                    Array = Array.Take(start).Concat(part).Concat(Array.Skip(end)).ToArray();
+                    PotokDll.Potok.SelectionSort(part);
+                    sortedParts[threadIndex] = part; // Зберігаємо відсортовану частину
                 });
 
                 Threads.Add(thread);
                 thread.Start();
             }
+
             // Чекаємо, поки всі потоки завершать роботу
             foreach (Thread thread in Threads)
             {
                 thread.Join();
             }
+
+            // Злиття всіх частин в один масив
+            Array = sortedParts.SelectMany(x => x).ToArray();
 
             // Після того як всі потоки завершили роботу, виводимо відсортований масив
             PrintArray(richTextBoxSortedArray, Array);
